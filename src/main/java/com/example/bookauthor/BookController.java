@@ -6,6 +6,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,17 +28,22 @@ public class BookController {
 	private BookService bookService;
 	
 	@RequestMapping(value = "/listaBook", method = RequestMethod.GET)
-	public List<Book> listaBook(){
-		return bookService.listaBook();
+	public ResponseEntity<List<Book>> listaBook(){
+		List<Book> books = bookService.listaBook();
+		return new ResponseEntity<List<Book>>(books, new HttpHeaders(), HttpStatus.OK);
+		//return bookService.listaBook();
 	}
 			
 	@RequestMapping(value = "/dettaglioBook/{id}", method = RequestMethod.GET)
-	public Book dettaglioBook(@PathVariable int id){
-		return bookService.dettaglioBook(id);
+	public ResponseEntity<Book> dettaglioBook(@PathVariable int id){
+		Book book = bookService.dettaglioBook(id);
+		return new ResponseEntity<Book>(book, new HttpHeaders(), HttpStatus.OK);
+		//return bookService.dettaglioBook(id);
 	}
 	
 	@RequestMapping(value = "/inserisciBook", method = RequestMethod.POST)
-	public Book addBook(@RequestBody Book book){
-		return bookService.addBook(book);
+	public ResponseEntity<Book> addBook(@RequestBody Book book){
+		Book insertedBook = bookService.addBook(book);
+		return new ResponseEntity<Book>(insertedBook, new HttpHeaders(), HttpStatus.CREATED);
 	}
 }
