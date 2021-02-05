@@ -14,8 +14,8 @@ public class Author {
     private int telephone;
     @ElementCollection
     private List<String> comments;
-    @ManyToOne
-    Book book;
+    //@ManyToOne
+    //Book book;
 
 
     public int getId() {
@@ -66,11 +66,11 @@ public class Author {
         this.comments = comments;
     }
 
-    public Book getBook() {
+/*    public Book getBook() {
         return book;
     }
 
     public void setBook(Book book) {
         this.book = book;
-    }
+    }*/
 }
