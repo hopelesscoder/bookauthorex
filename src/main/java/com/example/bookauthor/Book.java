@@ -28,7 +28,10 @@ public class Book {
 	private int year;
 	@ElementCollection
 	private List<String> categories;
-	@Transient
+	@ManyToMany
+	@JoinTable(name="BOOK_AUTHOR",
+			joinColumns=@JoinColumn(name="author_id", referencedColumnName="id"),
+			inverseJoinColumns=@JoinColumn(name="book_id", referencedColumnName="id"))
 	private List<Author> authors;
 
 	public int getId() {
