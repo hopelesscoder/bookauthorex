@@ -1,9 +1,6 @@
 package com.example.bookauthor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -15,6 +12,7 @@ public class Author {
     private String surname;
     private String address;
     private int telephone;
+    @ElementCollection
     private List<String> comments;
 
     public int getId() {
