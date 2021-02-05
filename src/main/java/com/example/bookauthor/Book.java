@@ -28,7 +28,7 @@ public class Book {
 	private int year;
 	@ElementCollection
 	private List<String> categories;
-	@OneToMany
+	@OneToMany()
 	@JoinColumn(name="author_id", referencedColumnName="id")
 	private List<Author> authors;
 

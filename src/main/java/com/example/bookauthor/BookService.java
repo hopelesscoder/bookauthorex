@@ -24,12 +24,10 @@ public class BookService {
 	private BookRespository bookRepository;
 
 	public List<Book> listaBook(){
-		log.info("Simulata una lista di book");
 		return bookRepository.findAll();
 	}
 	
 	public Book dettaglioBook( int id){
-		log.info("Simulata la ricerca del book con id "+id);
 		Optional<Book> book = bookRepository.findById(id);
 		if(book.isPresent()) {
 			return book.get();

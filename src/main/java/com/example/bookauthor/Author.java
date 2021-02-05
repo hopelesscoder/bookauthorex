@@ -14,8 +14,8 @@ public class Author {
     private int telephone;
     @ElementCollection
     private List<String> comments;
-    @ManyToMany(mappedBy="authors")
-    List<Book> books;
+    @ManyToOne
+    Book book;
 
 
     public int getId() {
@@ -66,11 +66,11 @@ public class Author {
         this.comments = comments;
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setBook(Book book) {
+        this.book = book;
     }
 }
