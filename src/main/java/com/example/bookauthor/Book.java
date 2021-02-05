@@ -28,6 +28,7 @@ public class Book {
 	private int year;
 	@ElementCollection
 	private List<String> categories;
+	@Transient
 	private List<Author> authors;
 
 	public int getId() {
