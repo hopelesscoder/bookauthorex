@@ -31,8 +31,17 @@ public class GenericService<Repo extends JpaRepository<ModelClass, Integer>, Mod
 		return obj;
 	}
 
-	public ModelClass saveOrUpdate(ModelClass objModel){
+	public ModelClass save(ModelClass objModel){
+		objModel.setId(0);
 		return repo.save(objModel);
+	}
+
+	public Optional<ModelClass> update(ModelClass objModel){
+		Optional<ModelClass> obj = repo.findById(objModel.getId());
+		if(!obj.isPresent()) {
+			return Optional.empty();
+		}
+		return Optional.of(repo.save(objModel));
 	}
 
 	public void deleteById(int id){

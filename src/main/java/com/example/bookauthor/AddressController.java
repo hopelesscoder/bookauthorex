@@ -47,19 +47,18 @@ public class AddressController {
 	
 	@RequestMapping(value = "/address", method = RequestMethod.POST)
 	public ResponseEntity<Address> addAddress(@RequestBody Address address){
-		Address insertedAddress = addressService.saveOrUpdate(address);
+		Address insertedAddress = addressService.save(address);
 		return new ResponseEntity<>(insertedAddress, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/address/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Address> updateAddress(@PathVariable int id, @RequestBody Address address){
-		Optional<Address> addressOpt = addressService.findById(id);
-		if(!addressOpt.isPresent()) {
+		address.setId(id);
+		Optional<Address> updatedAddress = addressService.update(address);
+		if(!updatedAddress.isPresent()) {
 			return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
 		}
-		address.setId(id);
-		Address updatedAddress = addressService.saveOrUpdate(address);
-		return new ResponseEntity<>(updatedAddress, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(updatedAddress.get(), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/address/{id}", method = RequestMethod.DELETE)
