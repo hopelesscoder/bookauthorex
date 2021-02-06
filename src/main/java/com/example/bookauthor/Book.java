@@ -28,8 +28,7 @@ public class Book {
 	private int year;
 	@ElementCollection
 	private List<String> categories;
-	@OneToMany()
-	@JoinColumn(name="author_id", referencedColumnName="id")
+	@Transient
 	private List<Author> authors;
 
 	public int getId() {
