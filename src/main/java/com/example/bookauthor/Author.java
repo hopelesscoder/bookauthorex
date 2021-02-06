@@ -24,6 +24,7 @@ public class Author {
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="address_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("author")
     private Address address;
 
     public int getId() {

@@ -1,5 +1,7 @@
 package com.example.bookauthor;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class Address {
     private String city;
 
     @OneToOne(mappedBy = "address")
+    @JsonIgnoreProperties("address")
     private Author author;
 
     public int getId() {
