@@ -16,7 +16,7 @@ public class Author {
     private int telephone;
     @ElementCollection
     private List<String> comments;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author")
     //@JoinColumn(name="book_id", referencedColumnName="id")
     @JsonIgnoreProperties("author")
     List<Book> books;
