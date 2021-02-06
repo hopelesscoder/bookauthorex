@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 @Entity
-public class Address {
+public class Address implements ModelObj{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

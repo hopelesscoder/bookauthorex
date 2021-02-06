@@ -23,22 +23,21 @@ public class BookService {
 	@Autowired
 	private BookRespository bookRepository;
 
-	public List<Book> listaBook(){
+	public List<Book> findAll(){
 		return bookRepository.findAll();
 	}
 	
-	public Book dettaglioBook( int id){
+	public Optional<Book> findById( int id){
 		Optional<Book> book = bookRepository.findById(id);
-		if(book.isPresent()) {
-			return book.get();
-		}else {
-			return new Book();
-		}
+		return book;
 	}
 	
-	public Book addBook(Book book){
-		bookRepository.save(book);
-		return book;
+	public Book saveOrUpdateBook(Book book){
+		return bookRepository.save(book);
+	}
+
+	public void deleteBookById(int id){
+		bookRepository.deleteById(id);
 	}
 
 	public void setBookRepository(BookRespository bookRepository) {

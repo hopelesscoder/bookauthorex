@@ -21,22 +21,21 @@ public class AuthorService {
 	@Autowired
 	private AuthorRespository authorRepository;
 
-	public List<Author> listaAuthor(){
+	public List<Author> findAll(){
 		return authorRepository.findAll();
 	}
-	
-	public Author dettaglioAuthor( int id){
+
+	public Optional<Author> findById( int id){
 		Optional<Author> author = authorRepository.findById(id);
-		if(author.isPresent()) {
-			return author.get();
-		}else {
-			return new Author();
-		}
-	}
-	
-	public Author addAuthor(Author author){
-		authorRepository.save(author);
 		return author;
+	}
+
+	public Author saveOrUpdateAuthor(Author author){
+		return authorRepository.save(author);
+	}
+
+	public void deleteAuthorById(int id){
+		authorRepository.deleteById(id);
 	}
 
 	public void setAuthorRepository(AuthorRespository authorRepository) {

@@ -2,6 +2,7 @@ package com.example.bookauthor;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,23 +28,46 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	
-	@RequestMapping(value = "/listaBook", method = RequestMethod.GET)
-	public ResponseEntity<List<Book>> listaBook(){
-		List<Book> books = bookService.listaBook();
-		return new ResponseEntity<List<Book>>(books, new HttpHeaders(), HttpStatus.OK);
-		//return bookService.listaBook();
+	@RequestMapping(value = "/book", method = RequestMethod.GET)
+	public ResponseEntity<List<Book>> listBook(){
+		List<Book> books = bookService.findAll();
+		if(books.isEmpty()){
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(books, new HttpHeaders(), HttpStatus.OK);
 	}
 			
-	@RequestMapping(value = "/dettaglioBook/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Book> dettaglioBook(@PathVariable int id){
-		Book book = bookService.dettaglioBook(id);
-		return new ResponseEntity<Book>(book, new HttpHeaders(), HttpStatus.OK);
-		//return bookService.dettaglioBook(id);
+	@RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Book> detailBook(@PathVariable int id){
+		Optional<Book> book = bookService.findById(id);
+		if(book.isPresent()) {
+			return new ResponseEntity<>(book.get(), new HttpHeaders(), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
+		}
+
 	}
 	
-	@RequestMapping(value = "/inserisciBook", method = RequestMethod.POST)
+	@RequestMapping(value = "/book", method = RequestMethod.POST)
 	public ResponseEntity<Book> addBook(@RequestBody Book book){
-		Book insertedBook = bookService.addBook(book);
-		return new ResponseEntity<Book>(insertedBook, new HttpHeaders(), HttpStatus.CREATED);
+		Book insertedBook = bookService.saveOrUpdateBook(book);
+		return new ResponseEntity<>(insertedBook, new HttpHeaders(), HttpStatus.CREATED);
+	}
+
+	@RequestMapping(value = "/book/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book book){
+		Optional<Book> bookOpt = bookService.findById(id);
+		if(!bookOpt.isPresent()) {
+			return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
+		}
+		book.setId(id);
+		Book updatedBook = bookService.saveOrUpdateBook(book);
+		return new ResponseEntity<>(updatedBook, new HttpHeaders(), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/book/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<HttpStatus> deleteBook(@PathVariable int id){
+		bookService.deleteBookById(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
