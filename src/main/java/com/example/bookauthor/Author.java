@@ -12,15 +12,19 @@ public class Author {
     private int id;
     private String name;
     private String surname;
-    private String address;
     private int telephone;
-    @ElementCollection
-    private List<String> comments;
+
     @OneToMany(mappedBy = "author")
     //@JoinColumn(name="book_id", referencedColumnName="id")
     @JsonIgnoreProperties("author")
     List<Book> books;
 
+    @ElementCollection
+    private List<String> comments;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="address_id", referencedColumnName = "id")
+    private Address address;
 
     public int getId() {
         return id;
@@ -46,14 +50,6 @@ public class Author {
         this.surname = surname;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public int getTelephone() {
         return telephone;
     }
@@ -76,5 +72,9 @@ public class Author {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

@@ -27,8 +27,10 @@ public class Book {
 	private String description;
 	private String language;
 	private int year;
+
 	@ElementCollection
 	private List<String> categories;
+
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="author_id", referencedColumnName="id")
 	@JsonIgnoreProperties("books")
