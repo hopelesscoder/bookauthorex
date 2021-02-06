@@ -15,6 +15,7 @@ public class Author {
     @ElementCollection
     private List<String> comments;
     @ManyToOne
+    @JoinColumn(name="book_id", referencedColumnName="id")
     Book book;
 
 
