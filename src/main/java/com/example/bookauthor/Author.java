@@ -19,7 +19,7 @@ public class Author {
     @OneToMany(mappedBy = "author")
     //@JoinColumn(name="book_id", referencedColumnName="id")
     @JsonIgnoreProperties("author")
-    Book book;
+    List<Book> books;
 
 
     public int getId() {
@@ -70,11 +70,11 @@ public class Author {
         this.comments = comments;
     }
 
-    public Book getBook() {
-        return book;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
