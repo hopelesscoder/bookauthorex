@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"address_id"})})
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

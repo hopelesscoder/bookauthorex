@@ -12,6 +12,7 @@ public class Address {
     private String street;
     private String city;
 
+
     @OneToOne(mappedBy = "address")
     @JsonIgnoreProperties("address")
     private Author author;
