@@ -5,6 +5,7 @@ package com.example.bookauthor;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -28,8 +29,10 @@ public class Book {
 	private int year;
 	@ElementCollection
 	private List<String> categories;
-	@OneToMany(mappedBy = "book")
-	private List<Author> authors;
+	@ManyToOne
+	@JoinColumn(name="author_id", referencedColumnName="id")
+	@JsonIgnoreProperties("books")
+	private Author author;
 
 	public int getId() {
 		return id;
@@ -102,11 +105,11 @@ public class Book {
 		this.categories = categories;
 	}
 
-	public List<Author> getAuthors() {
-		return authors;
+	public Author getAuthor() {
+		return author;
 	}
 
-	public void setAuthors(List<Author> authors) {
-		this.authors = authors;
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 }

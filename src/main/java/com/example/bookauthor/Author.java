@@ -1,5 +1,7 @@
 package com.example.bookauthor;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,8 +16,9 @@ public class Author {
     private int telephone;
     @ElementCollection
     private List<String> comments;
-    @ManyToOne
-    @JoinColumn(name="book_id", referencedColumnName="id")
+    @OneToMany(mappedBy = "author")
+    //@JoinColumn(name="book_id", referencedColumnName="id")
+    @JsonIgnoreProperties("author")
     Book book;
 
 
