@@ -32,7 +32,7 @@ public class BookDigestAuthController {
 			return new ResponseEntity<>(respondeHeaders, HttpStatus.UNAUTHORIZED);
 		}else{
 			System.out.println("Authorization = "+authorization);
-			if(!authorization.contains("56caa8377c539507866c0dc6de0076f4")){
+			if(!authorization.contains("06ff112d30aba3eeb049032f927eacb8")){
 				HttpHeaders respondeHeaders = new HttpHeaders();
 				respondeHeaders.add("WWW-Authenticate", "Basic realm=\"books\"");
 				return new ResponseEntity<>(respondeHeaders, HttpStatus.FORBIDDEN);
