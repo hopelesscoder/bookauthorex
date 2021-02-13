@@ -24,9 +24,8 @@ public class BookBasicAuthController {
 
 	@Autowired
 	private BookService bookService;
-	
-	@RequestMapping(value = "/book", method = RequestMethod.GET)
-	public ResponseEntity<List<Book>> listBook(@RequestHeader(value="Authorization", required = false) String authorization){
+
+	private ResponseEntity checkAuthorization(String authorization){
 		if(authorization == null || !authorization.startsWith("Basic")){
 			HttpHeaders respondeHeaders = new HttpHeaders();
 			respondeHeaders.add("WWW-Authenticate", "Basic realm=\"books\"");
@@ -42,15 +41,29 @@ public class BookBasicAuthController {
 				return new ResponseEntity<>(respondeHeaders, HttpStatus.FORBIDDEN);
 			}
 		}
+		return null;
+	}
+	
+	@RequestMapping(value = "/book", method = RequestMethod.GET)
+	public ResponseEntity<List<Book>> listBook(@RequestHeader(value="Authorization", required = false) String authorization){
+		ResponseEntity responseEntity = checkAuthorization(authorization);
+		if(responseEntity!= null){
+			return responseEntity;
+		}
 		List<Book> books = bookService.findAll();
 		if(books.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(books, new HttpHeaders(), HttpStatus.OK);
 	}
-			
+
 	@RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Book> detailBook(@PathVariable int id){
+	public ResponseEntity<Book> detailBook(@RequestHeader(value="Authorization", required = false) String authorization,
+										   @PathVariable int id){
+		ResponseEntity responseEntity = checkAuthorization(authorization);
+		if(responseEntity!= null){
+			return responseEntity;
+		}
 		Optional<Book> book = bookService.findById(id);
 		if(book.isPresent()) {
 			return new ResponseEntity<>(book.get(), new HttpHeaders(), HttpStatus.OK);
@@ -61,13 +74,24 @@ public class BookBasicAuthController {
 	}
 	
 	@RequestMapping(value = "/book", method = RequestMethod.POST)
-	public ResponseEntity<Book> addBook(@RequestBody Book book){
+	public ResponseEntity<Book> addBook(@RequestHeader(value="Authorization", required = false) String authorization,
+										@RequestBody Book book){
+		ResponseEntity responseEntity = checkAuthorization(authorization);
+		if(responseEntity!= null){
+			return responseEntity;
+		}
 		Book insertedBook = bookService.saveOrUpdateBook(book);
 		return new ResponseEntity<>(insertedBook, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/book/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book book){
+	public ResponseEntity<Book> updateBook(@RequestHeader(value="Authorization", required = false) String authorization,
+										   @PathVariable int id,
+										   @RequestBody Book book){
+		ResponseEntity responseEntity = checkAuthorization(authorization);
+		if(responseEntity!= null){
+			return responseEntity;
+		}
 		Optional<Book> bookOpt = bookService.findById(id);
 		if(!bookOpt.isPresent()) {
 			return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
@@ -78,7 +102,12 @@ public class BookBasicAuthController {
 	}
 
 	@RequestMapping(value = "/book/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<HttpStatus> deleteBook(@PathVariable int id){
+	public ResponseEntity<HttpStatus> deleteBook(@RequestHeader(value="Authorization", required = false) String authorization,
+												 @PathVariable int id){
+		ResponseEntity responseEntity = checkAuthorization(authorization);
+		if(responseEntity!= null){
+			return responseEntity;
+		}
 		bookService.deleteBookById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
