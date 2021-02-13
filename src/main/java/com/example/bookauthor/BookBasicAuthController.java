@@ -30,14 +30,14 @@ public class BookBasicAuthController {
 		if(authorization == null || !authorization.startsWith("Basic")){
 			HttpHeaders respondeHeaders = new HttpHeaders();
 			respondeHeaders.add("WWW-Authenticate", "Basic realm=\"books\"");
-			return new ResponseEntity<>(new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(respondeHeaders, HttpStatus.UNAUTHORIZED);
 		}else{
 			String userPass = new String(Base64.getDecoder().decode(authorization.substring(0,6)));
 			System.out.println("decoded userpass = "+userPass);
 			if(!userPass.equals("adminBook:adminPassword")){
 				HttpHeaders respondeHeaders = new HttpHeaders();
 				respondeHeaders.add("WWW-Authenticate", "Basic realm=\"books\"");
-				return new ResponseEntity<>(new HttpHeaders(), HttpStatus.FORBIDDEN);
+				return new ResponseEntity<>(respondeHeaders, HttpStatus.FORBIDDEN);
 			}
 		}
 		List<Book> books = bookService.findAll();
