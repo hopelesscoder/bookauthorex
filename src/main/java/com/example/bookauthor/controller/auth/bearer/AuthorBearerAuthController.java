@@ -52,7 +52,7 @@ public class AuthorBearerAuthController {
 			System.out.println("Credentials = "+authorization.substring(6));
 			String userPass = new String(Base64.getDecoder().decode(authorization.substring(6)));
 			System.out.println("decoded userpass = "+userPass);
-			if(!userPass.equals("adminBook:adminPassword")){
+			if(!userPass.equals("adminAuthor:adminPassword")){
 				HttpHeaders respondeHeaders = new HttpHeaders();
 				respondeHeaders.add("WWW-Authenticate", "Basic realm=\"authors\"");
 				return new ResponseEntity<>(respondeHeaders, HttpStatus.FORBIDDEN);

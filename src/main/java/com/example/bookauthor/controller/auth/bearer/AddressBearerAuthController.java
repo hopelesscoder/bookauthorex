@@ -52,7 +52,7 @@ public class AddressBearerAuthController {
 			System.out.println("Credentials = "+authorization.substring(6));
 			String userPass = new String(Base64.getDecoder().decode(authorization.substring(6)));
 			System.out.println("decoded userpass = "+userPass);
-			if(!userPass.equals("adminBook:adminPassword")){
+			if(!userPass.equals("adminAddress:adminPassword")){
 				HttpHeaders respondeHeaders = new HttpHeaders();
 				respondeHeaders.add("WWW-Authenticate", "Basic realm=\"addresses\"");
 				return new ResponseEntity<>(respondeHeaders, HttpStatus.FORBIDDEN);
