@@ -61,7 +61,7 @@ public class AddressBearerAuthController {
 		return null;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/address/login", method = RequestMethod.GET)
 	public ResponseEntity<String> login(@RequestHeader(value="Authorization", required = false) String authorization){
 		ResponseEntity responseEntity = checkAuthorizationForLogin(authorization);
 		if(responseEntity!= null){
