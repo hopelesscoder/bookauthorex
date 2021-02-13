@@ -1,5 +1,7 @@
-package com.example.bookauthor;
+package com.example.bookauthor.controller.auth.bearer;
 
+import com.example.bookauthor.Book;
+import com.example.bookauthor.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,8 +67,10 @@ public class BookBearerAuthController {
 		if(responseEntity!= null){
 			return responseEntity;
 		}
-		String response = "\"access_token\":\"YmIiLCJ0eXAiO.ljdHVyZSI6Imh.2hf2BpGqi4rS\",\"token_type\":\"Bearer\"";
-		return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+		String response = "{\"access_token\":\"YmIiLCJ0eXAiO.ljdHVyZSI6Imh.2hf2BpGqi4rS\",\"token_type\":\"Bearer\"}";
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add("Content-Type", "application/json");
+		return new ResponseEntity<>(response, httpHeaders, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/book", method = RequestMethod.GET)

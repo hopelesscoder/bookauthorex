@@ -1,4 +1,4 @@
-package com.example.bookauthor;
+package com.example.bookauthor.controller;
 
 import com.example.bookauthor.Address;
 import com.example.bookauthor.AddressService;
