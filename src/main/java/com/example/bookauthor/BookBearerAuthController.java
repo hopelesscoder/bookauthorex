@@ -59,7 +59,7 @@ public class BookBearerAuthController {
 		return null;
 	}
 
-	@RequestMapping(value = "/book", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ResponseEntity<String> login(@RequestHeader(value="Authorization", required = false) String authorization){
 		ResponseEntity responseEntity = checkAuthorizationForLogin(authorization);
 		if(responseEntity!= null){
