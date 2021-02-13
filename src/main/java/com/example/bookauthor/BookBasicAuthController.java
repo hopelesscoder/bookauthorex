@@ -33,7 +33,8 @@ public class BookBasicAuthController {
 			return new ResponseEntity<>(respondeHeaders, HttpStatus.UNAUTHORIZED);
 		}else{
 			System.out.println("Authorization = "+authorization);
-			String userPass = new String(Base64.getDecoder().decode(authorization.substring(0,5)));
+			System.out.println("Credentials = "+authorization.substring(6));
+			String userPass = new String(Base64.getDecoder().decode(authorization.substring(6)));
 			System.out.println("decoded userpass = "+userPass);
 			if(!userPass.equals("adminBook:adminPassword")){
 				HttpHeaders respondeHeaders = new HttpHeaders();
