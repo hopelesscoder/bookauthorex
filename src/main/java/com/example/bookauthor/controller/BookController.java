@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.example.bookauthor.model.Book;
 import com.example.bookauthor.service.BookService;
-import com.example.bookauthor.specification.BookWithTitle;
+import com.example.bookauthor.specification.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,22 @@ public class BookController {
 	private BookService bookService;
 	
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
-	public ResponseEntity<List<Book>> listBook(@RequestParam(required = false) String title){
-		Specification<Book> spec = Specification.where(new BookWithTitle(title));
+	public ResponseEntity<List<Book>> listBook(@RequestParam(required = false) String title,
+											   @RequestParam(required = false) Integer isbn,
+											   @RequestParam(required = false) Integer pages,
+											   @RequestParam(required = false) Boolean published,
+											   @RequestParam(required = false) String description,
+											   @RequestParam(required = false) String language,
+											   @RequestParam(required = false) Integer year,
+											   @RequestParam(required = false) String category){
+		Specification<Book> spec = Specification.where(new BookWithTitle(title))
+			.and(new BookWithIsbn(isbn))
+			.and(new BookWithPages(pages))
+			.and(new BookWithPublished(published))
+			.and(new BookWithDescription(description))
+			.and(new BookWithLanguage(language))
+			.and(new BookWithYear(year))
+			.and(new BookWithCategory(category));
 		List<Book> books = bookService.findAllWithfilters(spec);
 		if(books.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
