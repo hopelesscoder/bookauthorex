@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 
@@ -23,8 +24,8 @@ public class BookService {
 	@Autowired
 	private BookRespository bookRepository;
 
-	public List<Book> findAll(){
-		return bookRepository.findAll();
+	public List<Book> findAll(Specification spec){
+		return bookRepository.findAll(spec);
 	}
 	
 	public Optional<Book> findById( int id){

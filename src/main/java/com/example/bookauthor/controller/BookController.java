@@ -5,17 +5,15 @@ import java.util.Optional;
 
 import com.example.bookauthor.Book;
 import com.example.bookauthor.BookService;
+import com.example.bookauthor.specification.BookWithTitle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author daniele pasquini
@@ -30,8 +28,9 @@ public class BookController {
 	private BookService bookService;
 	
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
-	public ResponseEntity<List<Book>> listBook(){
-		List<Book> books = bookService.findAll();
+	public ResponseEntity<List<Book>> listBook(@RequestParam(required = false) String title){
+		Specification<Book> spec = Specification.where(new BookWithTitle(title));
+		List<Book> books = bookService.findAll(spec);
 		if(books.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
