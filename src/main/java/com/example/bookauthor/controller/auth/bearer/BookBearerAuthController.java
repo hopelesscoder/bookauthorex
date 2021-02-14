@@ -1,7 +1,7 @@
 package com.example.bookauthor.controller.auth.bearer;
 
-import com.example.bookauthor.Book;
-import com.example.bookauthor.BookService;
+import com.example.bookauthor.model.Book;
+import com.example.bookauthor.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

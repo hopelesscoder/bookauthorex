@@ -3,8 +3,8 @@ package com.example.bookauthor.controller;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.bookauthor.Book;
-import com.example.bookauthor.BookService;
+import com.example.bookauthor.model.Book;
+import com.example.bookauthor.service.BookService;
 import com.example.bookauthor.specification.BookWithTitle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

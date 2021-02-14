@@ -1,7 +1,7 @@
 package com.example.bookauthor.controller.auth.basic;
 
-import com.example.bookauthor.Address;
-import com.example.bookauthor.AddressService;
+import com.example.bookauthor.model.Address;
+import com.example.bookauthor.service.AddressService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,11 @@
 /**
  * 
  */
-package com.example.bookauthor;
+package com.example.bookauthor.model;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

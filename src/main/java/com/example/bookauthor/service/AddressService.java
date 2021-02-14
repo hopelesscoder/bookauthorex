@@ -1,12 +1,10 @@
-package com.example.bookauthor;
+package com.example.bookauthor.service;
 
+import com.example.bookauthor.model.Address;
+import com.example.bookauthor.repository.AddressRespository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 
 /**

@@ -8,18 +8,18 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-public class BookWithTitle implements Specification<Book> {
+public class BookWithLanguage implements Specification<Book> {
 
-    private String title;
+    private String language;
 
-    public BookWithTitle(String title) {
-        this.title = title;
+    public BookWithLanguage(String language) {
+        this.language = language;
     }
 
     public Predicate toPredicate(Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-        if (title == null) {
+        if (language == null) {
             return builder.isTrue(builder.literal(true));
         }
-        return builder.like(root.get("title"), "%"+this.title+"%");
+        return builder.like(root.get("language"), "%"+this.language +"%");
     }
 }

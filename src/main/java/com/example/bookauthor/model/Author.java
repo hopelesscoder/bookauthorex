@@ -1,4 +1,4 @@
-package com.example.bookauthor;
+package com.example.bookauthor.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

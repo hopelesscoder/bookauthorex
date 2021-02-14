@@ -1,11 +1,11 @@
-package com.example.bookauthor;
+package com.example.bookauthor.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 @Entity
-public class Address implements ModelObj{
+public class Address implements ModelObj {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

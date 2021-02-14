@@ -1,7 +1,7 @@
 package com.example.bookauthor.controller;
 
-import com.example.bookauthor.Author;
-import com.example.bookauthor.AuthorService;
+import com.example.bookauthor.model.Author;
+import com.example.bookauthor.service.AuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

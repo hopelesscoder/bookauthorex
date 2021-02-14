@@ -8,18 +8,18 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-public class BookWithTitle implements Specification<Book> {
+public class BookWithPages implements Specification<Book> {
 
-    private String title;
+    private Integer pages;
 
-    public BookWithTitle(String title) {
-        this.title = title;
+    public BookWithPages(Integer pages) {
+        this.pages = pages;
     }
 
     public Predicate toPredicate(Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-        if (title == null) {
+        if (pages == null) {
             return builder.isTrue(builder.literal(true));
         }
-        return builder.like(root.get("title"), "%"+this.title+"%");
+        return builder.equal(root.get("pages"), this.pages);
     }
 }
