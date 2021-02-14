@@ -30,7 +30,7 @@ public class BookController {
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
 	public ResponseEntity<List<Book>> listBook(@RequestParam(required = false) String title){
 		Specification<Book> spec = Specification.where(new BookWithTitle(title));
-		List<Book> books = bookService.findAll(spec);
+		List<Book> books = bookService.findAllWithfilters(spec);
 		if(books.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}

@@ -24,7 +24,11 @@ public class BookService {
 	@Autowired
 	private BookRespository bookRepository;
 
-	public List<Book> findAll(Specification spec){
+	public List<Book> findAll(){
+		return bookRepository.findAll();
+	}
+
+	public List<Book> findAllWithfilters(Specification spec){
 		return bookRepository.findAll(spec);
 	}
 	
