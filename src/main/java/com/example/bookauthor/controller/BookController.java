@@ -35,7 +35,8 @@ public class BookController {
 											   @RequestParam(required = false) String description,
 											   @RequestParam(required = false) String language,
 											   @RequestParam(required = false) Integer year,
-											   @RequestParam(required = false) Integer authorId){
+											   @RequestParam(required = false) Integer authorId,
+											   @RequestParam(required = false) String category){
 		Specification<Book> spec = Specification.where(new BookWithTitle(title))
 			.and(new BookWithIsbn(isbn))
 			.and(new BookWithPages(pages))
@@ -43,7 +44,8 @@ public class BookController {
 			.and(new BookWithDescription(description))
 			.and(new BookWithLanguage(language))
 			.and(new BookWithYear(year))
-			.and(new BookWithAuthorId(authorId));
+			.and(new BookWithAuthorId(authorId))
+			.and(new BookWithCategory(category));
 		List<Book> books = bookService.findAllWithfilters(spec);
 		if(books.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
