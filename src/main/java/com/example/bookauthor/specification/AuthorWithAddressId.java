@@ -7,23 +7,19 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
 
-public class BookWithCategory implements Specification<Book> {
+public class AuthorWithAddressId implements Specification<Book> {
 
-    private String category;
+    private Integer addressId;
 
-    public BookWithCategory(String category) {
-        this.category = category;
+    public AuthorWithAddressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
     public Predicate toPredicate(Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-        if (category == null) {
+        if (addressId == null) {
             return builder.isTrue(builder.literal(true));
         }
-        List listOfCategories = new ArrayList<String>();
-        listOfCategories.add(this.category);
-        return builder.in(root.get("categories").in(listOfCategories));
+        return builder.equal(root.get("address").get("id"), this.addressId);
     }
 }

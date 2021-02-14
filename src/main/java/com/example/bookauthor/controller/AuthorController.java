@@ -1,10 +1,13 @@
 package com.example.bookauthor.controller;
 
 import com.example.bookauthor.model.Author;
+import com.example.bookauthor.model.Book;
 import com.example.bookauthor.service.AuthorService;
+import com.example.bookauthor.specification.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +29,15 @@ public class AuthorController {
 	private AuthorService authorService;
 
 	@RequestMapping(value = "/author", method = RequestMethod.GET)
-	public ResponseEntity<List<Author>> listAuthor(){
-		List<Author> authors = authorService.findAll();
+	public ResponseEntity<List<Author>> listAuthor(@RequestParam(required = false) String name,
+												   @RequestParam(required = false) String surname,
+												   @RequestParam(required = false) Integer telephone,
+												   @RequestParam(required = false) Integer addressId){
+		Specification<Book> spec = Specification.where(new AuthorWithName(name))
+				.and(new AuthorWithSurname(surname))
+				.and(new AuthorWithTelephone(telephone))
+				.and(new AuthorWithAddressId(addressId));
+		List<Author> authors = authorService.findAllWithfilters(spec);
 		if(authors.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}

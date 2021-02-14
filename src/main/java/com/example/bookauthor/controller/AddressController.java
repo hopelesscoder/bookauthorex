@@ -1,10 +1,13 @@
 package com.example.bookauthor.controller;
 
 import com.example.bookauthor.model.Address;
+import com.example.bookauthor.model.Book;
 import com.example.bookauthor.service.AddressService;
+import com.example.bookauthor.specification.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +29,13 @@ public class AddressController {
 	private AddressService addressService;
 	
 	@RequestMapping(value = "/address", method = RequestMethod.GET)
-	public ResponseEntity<List<Address>> listAddress(){
-		List<Address> addresses = addressService.findAll();
+	public ResponseEntity<List<Address>> listAddress(@RequestParam(required = false) String street,
+													 @RequestParam(required = false) String city,
+													 @RequestParam(required = false) Integer authorId){
+		Specification<Book> spec = Specification.where(new AddressWithStreet(street))
+				.and(new AddressWithCity(city))
+				.and(new AddressWithAuthorId(authorId));
+		List<Address> addresses = addressService.findAllWithfilters(spec);
 		if(addresses.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}

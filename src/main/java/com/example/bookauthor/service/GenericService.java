@@ -1,9 +1,11 @@
 package com.example.bookauthor.service;
 
+import com.example.bookauthor.model.Author;
 import com.example.bookauthor.model.ModelObj;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +53,9 @@ public class GenericService<Repo extends JpaRepository<ModelClass, Integer>, Mod
 
 	public void setJpaRepository(Repo repo) {
 		this.repo = repo;
+	}
+
+	public Repo getRepo() {
+		return repo;
 	}
 }
