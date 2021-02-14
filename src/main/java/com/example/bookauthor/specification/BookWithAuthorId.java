@@ -20,6 +20,6 @@ public class BookWithAuthorId implements Specification<Book> {
         if (authorId == null) {
             return builder.isTrue(builder.literal(true));
         }
-        return builder.equal(root.get("author.id"), this.authorId);
+        return builder.equal(root.get("author").get("id"), this.authorId);
     }
 }
