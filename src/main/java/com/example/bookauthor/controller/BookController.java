@@ -34,16 +34,14 @@ public class BookController {
 											   @RequestParam(required = false) Boolean published,
 											   @RequestParam(required = false) String description,
 											   @RequestParam(required = false) String language,
-											   @RequestParam(required = false) Integer year,
-											   @RequestParam(required = false) String category){
+											   @RequestParam(required = false) Integer year){
 		Specification<Book> spec = Specification.where(new BookWithTitle(title))
 			.and(new BookWithIsbn(isbn))
 			.and(new BookWithPages(pages))
 			.and(new BookWithPublished(published))
 			.and(new BookWithDescription(description))
 			.and(new BookWithLanguage(language))
-			.and(new BookWithYear(year))
-			.and(new BookWithCategory(category));
+			.and(new BookWithYear(year));
 		List<Book> books = bookService.findAllWithfilters(spec);
 		if(books.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
